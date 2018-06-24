@@ -21,7 +21,7 @@
 </template>
 
 <script>
-import {setInfo,getInfo} from '../api/storage'
+import {setInfo,getInfo,addInfo} from '../api/storage'
 export default {
   name: 'login',
   data () {
@@ -35,7 +35,6 @@ export default {
       newUsername: '',
       newPassword: '',
       data1:[],
-      arr:[]
     }
   },
   methods:{
@@ -45,10 +44,9 @@ export default {
       }else{    
        var name=this.username;
        var code=this.password;
-       var userInfo=getInfo();
        var arr=[];
        var checkOut;
-       var obj={}
+       var userInfo=getInfo();
        console.log(userInfo)
        for(var i=0;i<userInfo.length;i++){
         for(var x in userInfo[i]){
@@ -69,10 +67,6 @@ export default {
           this.$router.push('/admin');
         }else{
       alert("恭喜皮皮鸡登录成功")
-      obj[name]=code;
-      userInfo.push(obj);
-      console.log(userInfo)
-      setInfo(userInfo);
       this.$router.push('/home');
     }
       }
@@ -103,10 +97,8 @@ export default {
     }else if(arr.indexOf(name)>=0){
       alert("已存在用户名")
     }else{
-      obj[name]=code;
-      userInfo.push(obj);
-      console.log(userInfo)
-      setInfo(userInfo);
+      addInfo(name,code);
+      console.log(userInfo);
       alert("注册成功");
       this.$router.push('/home')
     }
@@ -117,8 +109,8 @@ created(){
   this.$axios.get('/api/getInfo').then((res)=>{
    this.data1=res.data.data;
    // console.log(this.data1);
-   var data2=this.data1
-   setInfo(data2);
+   
+   setInfo(this.data1);
    // console.log(this.data1)
  })
 }
