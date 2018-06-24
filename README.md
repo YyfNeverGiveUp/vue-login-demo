@@ -1,6 +1,6 @@
 # vue-login-demo
 
-> 登录demo
+> 登录demo(注册，登录，密码用户名检测，管理员登录)
 
 ## Build Setup
 
